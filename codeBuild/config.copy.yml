@@ -1,0 +1,3 @@
+############################ GENERAL SETTINGS ############################
+#----- SNS ARN -----#
+successNotifierSNSARN: <SUCCESS-NOTIFIER-SNS-ARN>
