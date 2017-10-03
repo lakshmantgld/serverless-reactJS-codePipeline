@@ -1,4 +1,7 @@
-'use strict';
+/* eslint-disable global-require, import/first, no-unused-expressions, no-console */
+if (!global._babelPolyfill) require('babel-polyfill');
+
+import axios from 'axios';
 
 module.exports.successNotifier = (event, context, callback) => {
 
@@ -7,16 +10,18 @@ module.exports.successNotifier = (event, context, callback) => {
   console.log("Printing the whole event");
   console.log(event);
 
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'CodeBuild Success',
-      input: event,
-    }),
+  const options = {
+    text: event["Records"][0]["Sns"]["Message"].replace(/^"(.*)"$/, '$1'),
   };
 
-  callback(null, response);
+  axios.post(process.env.SUCCESS_SLACK_CHANNEL, JSON.stringify(options))
+  .then((response) => {
+    console.log('\nSUCCEEDED: Slack Message to Success Channel: \n', response.data);
+    callback(null, 'SUCCEEDED: Slack Message to Success Channel');
+  })
+  .catch((error) => {
+    console.log('\nFAILED: Slack Message to Success Channel', error);
+    callback(error);
+  });
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
 };
