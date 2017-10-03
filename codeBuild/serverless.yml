@@ -5,8 +5,18 @@ provider:
   runtime: nodejs6.10
   region: ap-northeast-1
 
+plugins:
+  - serverless-webpack
+
+custom:
+  webpackIncludeModules: true # enable auto including node_modules
+  graphiql:
+    babelOptions:
+      presets: [es2015, es2016, stage-0]
+      plugins: [transform-runtime]
+
 functions:
   success-notifier:
-    handler: handler.hello
+    handler: handler.successNotifier
     events:
       - sns: ${file(./config.yml):successNotifierSNSARN}

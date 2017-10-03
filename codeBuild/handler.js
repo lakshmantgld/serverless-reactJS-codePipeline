@@ -1,6 +1,12 @@
 'use strict';
 
-module.exports.hello = (event, context, callback) => {
+module.exports.successNotifier = (event, context, callback) => {
+
+  console.log("Inside successNotifier");
+  console.log("Printing SNS message: ", event["Records"][0]["Sns"]["Message"]);
+  console.log("Printing the whole event");
+  console.log(event);
+
   const response = {
     statusCode: 200,
     body: JSON.stringify({
