@@ -1,3 +1,8 @@
 ############################ GENERAL SETTINGS ############################
 #----- SNS ARN -----#
 successNotifierSNSARN: <SUCCESS-NOTIFIER-SNS-ARN>
+failNotifierSNSARN:
+
+#----- SLACK CHANNEL WEBHOOKS -----#
+successSlackChannel: <SUCCESS_SLACK_CHANNEL>
+failSlackChannel: <FAIL_SLACK_CHANNEL>
