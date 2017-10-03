@@ -6,7 +6,7 @@ provider:
   region: ap-northeast-1
   environment:
     SUCCESS_SLACK_CHANNEL: ${file(./config.yml):successSlackChannel}
-    FAIL_SLACK_CHANNEL: ${file(./config.yml):failSlackChannel}
+    FAILURE_SLACK_CHANNEL: ${file(./config.yml):failureSlackChannel}
 
 plugins:
   - serverless-webpack
@@ -23,3 +23,8 @@ functions:
     handler: handler.successNotifier
     events:
       - sns: ${file(./config.yml):successNotifierSNSARN}
+
+  failure-notifier:
+    handler: handler.failureNotifier
+    events:
+      - sns: ${file(./config.yml):failureNotifierSNSARN}
